@@ -1,20 +1,6 @@
 name: Publish package (pypi)
 
-on:
-  workflow_call:
-    inputs:
-      package-name:
-        description: The name of the package
-        default: ${{github.event.repository.name}}
-        type: string
-      environment-name:
-        description: The name of the environment
-        default: pypi
-        type: string
-      python-version:
-        description: The Python version
-        default: ${{vars.PYTHON_VERSION || '3.x'}}
-        type: string
+on: push
 
 jobs:
   build_sdist:
@@ -52,7 +38,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           cache: pip
-          python-version: ${{inputs.python-version}}
+          python-version: '3.11'
       - name: Set up QEMU
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3
